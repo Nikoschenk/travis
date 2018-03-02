@@ -20,7 +20,13 @@ import org.json.JSONObject;
 public class BoldeToTraleConverter {
     
     
+    
+    
      public static final String JSON_FILE = "files/formatted.json";
+     
+     
+     public static final boolean PRINT_LEXICALENTRY = false;
+     public static final boolean PRINT_PRINCIPLE = false;
 
     /**
      * @param args the command line arguments
@@ -86,7 +92,7 @@ public class BoldeToTraleConverter {
                                         // Get trale.
                                         String lexStrTrale = LexicalEntryConverter.convertLexiconEntry(lexInfo);
                                         // print trale format.
-                                        System.out.println(aLexemeString.toLowerCase() + " => " + lexStrTrale + "\n");
+                                        if(PRINT_LEXICALENTRY) System.out.println(aLexemeString.toLowerCase() + " => " + lexStrTrale + "\n");
                                     }
                                     break;
                             }
@@ -97,6 +103,10 @@ public class BoldeToTraleConverter {
                 case "whatever":
                     break;
                     
+                case "rules":
+                    System.out.println("Converting rules...");
+                    break;
+                        
                     
                 case "principles":
                     System.out.println("Converting principles...");
@@ -107,7 +117,7 @@ public class BoldeToTraleConverter {
                         JSONObject aPrincipleEntry = (JSONObject)principleEntries.get(l);
                         //System.out.println(aPrincipleEntry);
                         String trale = PrinciplesConverter.convertPrinciple(aPrincipleEntry);
-                        System.out.println(trale + "\n");
+                        if(PRINT_PRINCIPLE) System.out.println(trale + "\n");
                     }
                 break;
                         
