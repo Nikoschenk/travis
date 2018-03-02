@@ -1,0 +1,104 @@
+
+        {
+            "a": {
+                "borjes": "tfstruct",
+                "borjes_bound": {
+                    "borjes": "world",
+                    "titles": [],
+                    "values": []
+                },
+                "f": [
+                    "syn"
+                ],
+                "type": {
+                    "borjes": "latticeel",
+                    "e": "word",
+                    "l": "signature"
+                },
+                "v": {
+                    "syn": {
+                        "borjes": "tfstruct",
+                        "f": [
+                            "pos"
+                        ],
+                        "type": {
+                            "borjes": "latticeel",
+                            "e": "category",
+                            "l": "signature"
+                        },
+                        "v": {
+                            "pos": {
+                                "borjes": "tfstruct",
+                                "f": [
+                                    "vform"
+                                ],
+                                "type": {
+                                    "borjes": "latticeel",
+                                    "e": "v",
+                                    "l": "signature"
+                                },
+                                "v": {
+                                    "vform": {
+                                        "borjes": "latticeel",
+                                        "e": "fin",
+                                        "l": "signature"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "borjes": "principle",
+            "c": {
+                "borjes": "fstruct",
+                "borjes_bound": {
+                    "borjes": "world",
+                    "titles": [],
+                    "values": []
+                },
+                "f": [
+                    "syn"
+                ],
+                "v": {
+                    "syn": {
+                        "borjes": "fstruct",
+                        "f": [
+                            "subj"
+                        ],
+                        "v": {
+                            "subj": {
+                                "borjes": "list",
+                                "first": {
+                                    "borjes": "fstruct",
+                                    "f": [
+                                        "pos"
+                                    ],
+                                    "v": {
+                                        "pos": {
+                                            "borjes": "fstruct",
+                                            "f": [
+                                                "case"
+                                            ],
+                                            "v": {
+                                                "case": {
+                                                    "borjes": "latticeel",
+                                                    "e": "nom",
+                                                    "l": "signature"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "rest": {
+                                    "borjes": "list_empty"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "name": "Principle",
+            "on": {}
+        }
+	

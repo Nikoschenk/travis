@@ -1,0 +1,1418 @@
+{
+    "global": {
+        "signature": {
+            "agr": {
+                "non_thd_sg": null,
+                "thd_sg": null
+            },
+            "bool": {
+                "minus": null,
+                "plus": null
+            },
+            "case": {
+                "acc": null,
+                "nom": null
+            },
+            "category": null,
+            "form": {
+                "it": null,
+                "none": null,
+                "of": null,
+                "on": null,
+                "there": null,
+                "to": null
+            },
+            "list": {
+                "e_list": null,
+                "ne_list": null
+            },
+            "pos": {
+                "a": null,
+                "adv": null,
+                "agr_pos": {
+                    "d": null,
+                    "n": null,
+                    "v": null
+                },
+                "c": null,
+                "form_pos": {
+                    "n": null,
+                    "p": null
+                }
+            },
+            "sign": {
+                "phrase": null,
+                "word": null
+            },
+            "vform": {
+                "fin": null,
+                "nonfin": {
+                    "base": null,
+                    "inf": null,
+                    "pastp": null,
+                    "presp": null
+                }
+            }
+        }
+    },
+    "lexicon": [
+        {
+            "common": {
+                "borjes": "world",
+                "titles": [
+                    "Root",
+                    "Morph"
+                ],
+                "values": [
+                    {
+                        "borjes": "anything"
+                    },
+                    {
+                        "borjes": "anything"
+                    }
+                ]
+            },
+            "lexemes": [
+                [
+                    "smokes",
+                    {
+                        "borjes": "anything"
+                    }
+                ],
+                [
+                    "danced",
+                    {
+                        "borjes": "anything"
+                    }
+                ]
+            ],
+            "name": "Intransitive verbs",
+            "nparams": 2,
+            "values": [
+                [
+                    "",
+                    "",
+                    {
+                        "borjes": "anything"
+                    },
+                    {
+                        "borjes": "tfstruct",
+                        "borjes_bound": {
+                            "borjes": "world",
+                            "titles": [
+                                "Root",
+                                "Morph"
+                            ],
+                            "values": [
+                                {
+                                    "borjes": "anything"
+                                },
+                                {
+                                    "borjes": "anything"
+                                }
+                            ]
+                        },
+                        "f": [
+                            "phon",
+                            "syn"
+                        ],
+                        "type": {
+                            "borjes": "latticeel",
+                            "e": "word",
+                            "l": "signature"
+                        },
+                        "v": {
+                            "phon": {
+                                "borjes": "variable",
+                                "index": 1
+                            },
+                            "syn": {
+                                "borjes": "tfstruct",
+                                "f": [
+                                    "subj",
+                                    "comps",
+                                    "pos"
+                                ],
+                                "type": {
+                                    "borjes": "latticeel",
+                                    "e": "category",
+                                    "l": "signature"
+                                },
+                                "v": {
+                                    "comps": {
+                                        "borjes": "list_empty"
+                                    },
+                                    "pos": {
+                                        "borjes": "tfstruct",
+                                        "f": [
+                                            "vform"
+                                        ],
+                                        "type": {
+                                            "borjes": "latticeel",
+                                            "e": "v",
+                                            "l": "signature"
+                                        },
+                                        "v": {
+                                            "vform": {
+                                                "borjes": "latticeel",
+                                                "e": "fin",
+                                                "l": "signature"
+                                            }
+                                        }
+                                    },
+                                    "subj": {
+                                        "borjes": "list",
+                                        "first": {
+                                            "borjes": "tfstruct",
+                                            "f": [
+                                                "pos",
+                                                "subj",
+                                                "spr",
+                                                "comps"
+                                            ],
+                                            "type": {
+                                                "borjes": "latticeel",
+                                                "e": "category",
+                                                "l": "signature"
+                                            },
+                                            "v": {
+                                                "comps": {
+                                                    "borjes": "list_empty"
+                                                },
+                                                "pos": {
+                                                    "borjes": "tfstruct",
+                                                    "f": [],
+                                                    "type": {
+                                                        "borjes": "latticeel",
+                                                        "e": "n",
+                                                        "l": "signature"
+                                                    },
+                                                    "v": {}
+                                                },
+                                                "spr": {
+                                                    "borjes": "list_empty"
+                                                },
+                                                "subj": {
+                                                    "borjes": "list_empty"
+                                                }
+                                            }
+                                        },
+                                        "rest": {
+                                            "borjes": "list_empty"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            ]
+        },
+        {
+            "common": {
+                "borjes": "world",
+                "titles": [
+                    "Root",
+                    "Morph"
+                ],
+                "values": [
+                    {
+                        "borjes": "anything"
+                    },
+                    {
+                        "borjes": "anything"
+                    }
+                ]
+            },
+            "lexemes": [
+                [
+                    "Lilly",
+                    {
+                        "borjes": "anything"
+                    }
+                ],
+                [
+                    "Fido",
+                    {
+                        "borjes": "anything"
+                    }
+                ],
+                [
+                    "Mary",
+                    {
+                        "borjes": "anything"
+                    }
+                ],
+                [
+                    "John",
+                    {
+                        "borjes": "anything"
+                    }
+                ]
+            ],
+            "name": "Names",
+            "nparams": 2,
+            "values": [
+                [
+                    "",
+                    "",
+                    {
+                        "borjes": "anything"
+                    },
+                    {
+                        "borjes": "tfstruct",
+                        "borjes_bound": {
+                            "borjes": "world",
+                            "titles": [
+                                "Root",
+                                "Morph"
+                            ],
+                            "values": [
+                                {
+                                    "borjes": "anything"
+                                },
+                                {
+                                    "borjes": "anything"
+                                }
+                            ]
+                        },
+                        "f": [
+                            "phon",
+                            "syn"
+                        ],
+                        "type": {
+                            "borjes": "latticeel",
+                            "e": "word",
+                            "l": "signature"
+                        },
+                        "v": {
+                            "phon": {
+                                "borjes": "variable",
+                                "index": 1
+                            },
+                            "syn": {
+                                "borjes": "tfstruct",
+                                "f": [
+                                    "subj",
+                                    "spr",
+                                    "comps",
+                                    "pos"
+                                ],
+                                "type": {
+                                    "borjes": "latticeel",
+                                    "e": "category",
+                                    "l": "signature"
+                                },
+                                "v": {
+                                    "comps": {
+                                        "borjes": "list_empty"
+                                    },
+                                    "pos": {
+                                        "borjes": "latticeel",
+                                        "e": "n",
+                                        "l": "signature"
+                                    },
+                                    "spr": {
+                                        "borjes": "list_empty"
+                                    },
+                                    "subj": {
+                                        "borjes": "list_empty"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            ]
+        },
+        {
+            "common": {
+                "borjes": "world",
+                "titles": [
+                    "Root",
+                    "Morph",
+                    2
+                ],
+                "values": [
+                    {
+                        "borjes": "anything"
+                    },
+                    {
+                        "borjes": "anything"
+                    },
+                    {
+                        "borjes": "anything"
+                    }
+                ]
+            },
+            "lexemes": [
+                [
+                    "likes",
+                    {
+                        "borjes": "anything"
+                    }
+                ],
+                [
+                    "admires",
+                    {
+                        "borjes": "anything"
+                    }
+                ]
+            ],
+            "name": "Transitive verbs",
+            "nparams": 2,
+            "values": [
+                [
+                    "",
+                    "",
+                    {
+                        "borjes": "anything"
+                    },
+                    {
+                        "borjes": "tfstruct",
+                        "borjes_bound": {
+                            "borjes": "world",
+                            "titles": [
+                                "Root",
+                                "Morph",
+                                2
+                            ],
+                            "values": [
+                                {
+                                    "borjes": "anything"
+                                },
+                                {
+                                    "borjes": "anything"
+                                },
+                                {
+                                    "borjes": "anything"
+                                }
+                            ]
+                        },
+                        "f": [
+                            "phon",
+                            "syn"
+                        ],
+                        "type": {
+                            "borjes": "latticeel",
+                            "e": "word",
+                            "l": "signature"
+                        },
+                        "v": {
+                            "phon": {
+                                "borjes": "variable",
+                                "index": 1
+                            },
+                            "syn": {
+                                "borjes": "tfstruct",
+                                "f": [
+                                    "subj",
+                                    "pos",
+                                    "comps"
+                                ],
+                                "type": {
+                                    "borjes": "latticeel",
+                                    "e": "category",
+                                    "l": "signature"
+                                },
+                                "v": {
+                                    "comps": {
+                                        "borjes": "list",
+                                        "first": {
+                                            "borjes": "tfstruct",
+                                            "f": [
+                                                "pos",
+                                                "subj",
+                                                "spr",
+                                                "comps"
+                                            ],
+                                            "type": {
+                                                "borjes": "latticeel",
+                                                "e": "category",
+                                                "l": "signature"
+                                            },
+                                            "v": {
+                                                "comps": {
+                                                    "borjes": "list_empty"
+                                                },
+                                                "pos": {
+                                                    "borjes": "tfstruct",
+                                                    "f": [
+                                                        "case"
+                                                    ],
+                                                    "type": {
+                                                        "borjes": "latticeel",
+                                                        "e": "n",
+                                                        "l": "signature"
+                                                    },
+                                                    "v": {
+                                                        "case": {
+                                                            "borjes": "latticeel",
+                                                            "e": "acc",
+                                                            "l": "signature"
+                                                        }
+                                                    }
+                                                },
+                                                "spr": {
+                                                    "borjes": "list_empty"
+                                                },
+                                                "subj": {
+                                                    "borjes": "list_empty"
+                                                }
+                                            }
+                                        },
+                                        "rest": {
+                                            "borjes": "list_empty"
+                                        }
+                                    },
+                                    "pos": {
+                                        "borjes": "tfstruct",
+                                        "f": [
+                                            "vform"
+                                        ],
+                                        "type": {
+                                            "borjes": "latticeel",
+                                            "e": "v",
+                                            "l": "signature"
+                                        },
+                                        "v": {
+                                            "vform": {
+                                                "borjes": "latticeel",
+                                                "e": "fin",
+                                                "l": "signature"
+                                            }
+                                        }
+                                    },
+                                    "subj": {
+                                        "borjes": "list",
+                                        "first": {
+                                            "borjes": "tfstruct",
+                                            "f": [
+                                                "pos",
+                                                "subj",
+                                                "spr",
+                                                "comps"
+                                            ],
+                                            "type": {
+                                                "borjes": "latticeel",
+                                                "e": "category",
+                                                "l": "signature"
+                                            },
+                                            "v": {
+                                                "comps": {
+                                                    "borjes": "list_empty"
+                                                },
+                                                "pos": {
+                                                    "borjes": "tfstruct",
+                                                    "f": [],
+                                                    "type": {
+                                                        "borjes": "latticeel",
+                                                        "e": "n",
+                                                        "l": "signature"
+                                                    },
+                                                    "v": {}
+                                                },
+                                                "spr": {
+                                                    "borjes": "list_empty"
+                                                },
+                                                "subj": {
+                                                    "borjes": "list_empty"
+                                                }
+                                            }
+                                        },
+                                        "rest": {
+                                            "borjes": "list_empty"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            ]
+        },
+        {
+            "common": {
+                "borjes": "world",
+                "titles": [
+                    "Root",
+                    "Morph"
+                ],
+                "values": [
+                    {
+                        "borjes": "anything"
+                    },
+                    {
+                        "borjes": "anything"
+                    }
+                ]
+            },
+            "lexemes": [
+                [
+                    "I",
+                    {
+                        "borjes": "anything"
+                    }
+                ],
+                [
+                    "he",
+                    {
+                        "borjes": "anything"
+                    }
+                ],
+                [
+                    "she",
+                    {
+                        "borjes": "anything"
+                    }
+                ]
+            ],
+            "name": "Nominative pronouns",
+            "nparams": 2,
+            "values": [
+                [
+                    "",
+                    "",
+                    {
+                        "borjes": "anything"
+                    },
+                    {
+                        "borjes": "tfstruct",
+                        "f": [
+                            "phon",
+                            "syn"
+                        ],
+                        "type": {
+                            "borjes": "latticeel",
+                            "e": "word",
+                            "l": "signature"
+                        },
+                        "v": {
+                            "phon": {
+                                "borjes": "variable",
+                                "index": 1
+                            },
+                            "syn": {
+                                "borjes": "tfstruct",
+                                "f": [
+                                    "subj",
+                                    "spr",
+                                    "comps",
+                                    "pos"
+                                ],
+                                "type": {
+                                    "borjes": "latticeel",
+                                    "e": "category",
+                                    "l": "signature"
+                                },
+                                "v": {
+                                    "comps": {
+                                        "borjes": "list_empty"
+                                    },
+                                    "pos": {
+                                        "borjes": "tfstruct",
+                                        "f": [
+                                            "case"
+                                        ],
+                                        "type": {
+                                            "borjes": "latticeel",
+                                            "e": "n",
+                                            "l": "signature"
+                                        },
+                                        "v": {
+                                            "case": {
+                                                "borjes": "latticeel",
+                                                "e": "nom",
+                                                "l": "signature"
+                                            }
+                                        }
+                                    },
+                                    "spr": {
+                                        "borjes": "list_empty"
+                                    },
+                                    "subj": {
+                                        "borjes": "list_empty"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            ]
+        },
+        {
+            "common": {
+                "borjes": "world",
+                "titles": [
+                    "Root",
+                    "Morph"
+                ],
+                "values": [
+                    {
+                        "borjes": "anything"
+                    },
+                    {
+                        "borjes": "anything"
+                    }
+                ]
+            },
+            "lexemes": [
+                [
+                    "me",
+                    {
+                        "borjes": "anything"
+                    }
+                ],
+                [
+                    "him",
+                    {
+                        "borjes": "anything"
+                    }
+                ],
+                [
+                    "her",
+                    {
+                        "borjes": "anything"
+                    }
+                ]
+            ],
+            "name": "Accusative pronouns",
+            "nparams": 2,
+            "values": [
+                [
+                    "",
+                    "",
+                    {
+                        "borjes": "anything"
+                    },
+                    {
+                        "borjes": "tfstruct",
+                        "f": [
+                            "phon",
+                            "syn"
+                        ],
+                        "type": {
+                            "borjes": "latticeel",
+                            "e": "word",
+                            "l": "signature"
+                        },
+                        "v": {
+                            "phon": {
+                                "borjes": "variable",
+                                "index": 1
+                            },
+                            "syn": {
+                                "borjes": "tfstruct",
+                                "f": [
+                                    "subj",
+                                    "spr",
+                                    "comps",
+                                    "pos"
+                                ],
+                                "type": {
+                                    "borjes": "latticeel",
+                                    "e": "category",
+                                    "l": "signature"
+                                },
+                                "v": {
+                                    "comps": {
+                                        "borjes": "list_empty"
+                                    },
+                                    "pos": {
+                                        "borjes": "tfstruct",
+                                        "f": [
+                                            "case"
+                                        ],
+                                        "type": {
+                                            "borjes": "latticeel",
+                                            "e": "n",
+                                            "l": "signature"
+                                        },
+                                        "v": {
+                                            "case": {
+                                                "borjes": "latticeel",
+                                                "e": "acc",
+                                                "l": "signature"
+                                            }
+                                        }
+                                    },
+                                    "spr": {
+                                        "borjes": "list_empty"
+                                    },
+                                    "subj": {
+                                        "borjes": "list_empty"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            ]
+        },
+        {
+            "common": {
+                "borjes": "world",
+                "titles": [
+                    "Root",
+                    "Morph"
+                ],
+                "values": [
+                    {
+                        "borjes": "anything"
+                    },
+                    {
+                        "borjes": "anything"
+                    }
+                ]
+            },
+            "lexemes": [
+                [
+                    "it",
+                    {
+                        "borjes": "anything"
+                    }
+                ]
+            ],
+            "name": "Case pronouns",
+            "nparams": 2,
+            "values": [
+                [
+                    "",
+                    "",
+                    {
+                        "borjes": "anything"
+                    },
+                    {
+                        "borjes": "tfstruct",
+                        "f": [
+                            "phon",
+                            "syn"
+                        ],
+                        "type": {
+                            "borjes": "latticeel",
+                            "e": "word",
+                            "l": "signature"
+                        },
+                        "v": {
+                            "phon": {
+                                "borjes": "variable",
+                                "index": 1
+                            },
+                            "syn": {
+                                "borjes": "tfstruct",
+                                "f": [
+                                    "subj",
+                                    "spr",
+                                    "comps",
+                                    "pos"
+                                ],
+                                "type": {
+                                    "borjes": "latticeel",
+                                    "e": "category",
+                                    "l": "signature"
+                                },
+                                "v": {
+                                    "comps": {
+                                        "borjes": "list_empty"
+                                    },
+                                    "pos": {
+                                        "borjes": "latticeel",
+                                        "e": "n",
+                                        "l": "signature"
+                                    },
+                                    "spr": {
+                                        "borjes": "list_empty"
+                                    },
+                                    "subj": {
+                                        "borjes": "list_empty"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            ]
+        }
+    ],
+    "principles": [
+        {
+            "a": {
+                "borjes": "tfstruct",
+                "borjes_bound": {
+                    "borjes": "world",
+                    "titles": [],
+                    "values": []
+                },
+                "f": [],
+                "type": {
+                    "borjes": "latticeel",
+                    "e": "phrase",
+                    "l": "signature"
+                },
+                "v": {}
+            },
+            "borjes": "principle",
+            "c": {
+                "borjes": "tfstruct",
+                "borjes_bound": {
+                    "borjes": "world",
+                    "titles": [
+                        0,
+                        1,
+                        "1",
+                        "1",
+                        "1"
+                    ],
+                    "values": [
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        }
+                    ]
+                },
+                "f": [
+                    "syn",
+                    "head_dtr"
+                ],
+                "type": {
+                    "borjes": "latticeel",
+                    "e": "sign",
+                    "l": "signature"
+                },
+                "v": {
+                    "head_dtr": {
+                        "borjes": "fstruct",
+                        "f": [
+                            "syn"
+                        ],
+                        "v": {
+                            "syn": {
+                                "borjes": "fstruct",
+                                "f": [
+                                    "pos"
+                                ],
+                                "v": {
+                                    "pos": {
+                                        "borjes": "variable",
+                                        "index": 4
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "syn": {
+                        "borjes": "fstruct",
+                        "f": [
+                            "pos"
+                        ],
+                        "v": {
+                            "pos": {
+                                "borjes": "variable",
+                                "index": 3
+                            }
+                        }
+                    }
+                }
+            },
+            "name": "Head Feature Principle",
+            "on": {}
+        },
+        {
+            "a": {
+                "borjes": "tfstruct",
+                "borjes_bound": {
+                    "borjes": "world",
+                    "titles": [],
+                    "values": []
+                },
+                "f": [
+                    "syn"
+                ],
+                "type": {
+                    "borjes": "latticeel",
+                    "e": "word",
+                    "l": "signature"
+                },
+                "v": {
+                    "syn": {
+                        "borjes": "tfstruct",
+                        "f": [
+                            "pos"
+                        ],
+                        "type": {
+                            "borjes": "latticeel",
+                            "e": "category",
+                            "l": "signature"
+                        },
+                        "v": {
+                            "pos": {
+                                "borjes": "tfstruct",
+                                "f": [
+                                    "vform"
+                                ],
+                                "type": {
+                                    "borjes": "latticeel",
+                                    "e": "v",
+                                    "l": "signature"
+                                },
+                                "v": {
+                                    "vform": {
+                                        "borjes": "latticeel",
+                                        "e": "fin",
+                                        "l": "signature"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "borjes": "principle",
+            "c": {
+                "borjes": "fstruct",
+                "borjes_bound": {
+                    "borjes": "world",
+                    "titles": [],
+                    "values": []
+                },
+                "f": [
+                    "syn"
+                ],
+                "v": {
+                    "syn": {
+                        "borjes": "fstruct",
+                        "f": [
+                            "subj"
+                        ],
+                        "v": {
+                            "subj": {
+                                "borjes": "list",
+                                "first": {
+                                    "borjes": "fstruct",
+                                    "f": [
+                                        "pos"
+                                    ],
+                                    "v": {
+                                        "pos": {
+                                            "borjes": "fstruct",
+                                            "f": [
+                                                "case"
+                                            ],
+                                            "v": {
+                                                "case": {
+                                                    "borjes": "latticeel",
+                                                    "e": "nom",
+                                                    "l": "signature"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "rest": {
+                                    "borjes": "list_empty"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "name": "Principle",
+            "on": {}
+        }
+    ],
+    "rules": [
+        {
+            "arity": 2,
+            "borjes": "rule",
+            "d": [
+                {
+                    "borjes": "variable",
+                    "index": 0
+                },
+                {
+                    "borjes": "variable",
+                    "index": 1
+                }
+            ],
+            "m": {
+                "borjes": "tfstruct",
+                "borjes_bound": {
+                    "borjes": "world",
+                    "titles": [
+                        0,
+                        1,
+                        2,
+                        "2",
+                        "1",
+                        "0",
+                        "2"
+                    ],
+                    "values": [
+                        {
+                            "borjes": "tfstruct",
+                            "f": [
+                                "syn"
+                            ],
+                            "type": {
+                                "borjes": "latticeel",
+                                "e": "sign",
+                                "l": "signature"
+                            },
+                            "v": {
+                                "syn": {
+                                    "borjes": "variable",
+                                    "index": 6
+                                }
+                            }
+                        },
+                        {
+                            "borjes": "tfstruct",
+                            "f": [
+                                "syn"
+                            ],
+                            "type": {
+                                "borjes": "latticeel",
+                                "e": "sign",
+                                "l": "signature"
+                            },
+                            "v": {
+                                "syn": {
+                                    "borjes": "tfstruct",
+                                    "f": [
+                                        "head",
+                                        "subj",
+                                        "spr",
+                                        "comps",
+                                        "pos"
+                                    ],
+                                    "type": {
+                                        "borjes": "latticeel",
+                                        "e": "category",
+                                        "l": "signature"
+                                    },
+                                    "v": {
+                                        "comps": {
+                                            "borjes": "list_empty"
+                                        },
+                                        "head": {
+                                            "borjes": "tfstruct",
+                                            "f": [
+                                                "vform"
+                                            ],
+                                            "type": {
+                                                "borjes": "latticeel",
+                                                "e": "v",
+                                                "l": "signature"
+                                            },
+                                            "v": {
+                                                "vform": {
+                                                    "borjes": "latticeel",
+                                                    "e": "fin",
+                                                    "l": "signature"
+                                                }
+                                            }
+                                        },
+                                        "pos": {
+                                            "borjes": "tfstruct",
+                                            "f": [
+                                                "vform"
+                                            ],
+                                            "type": {
+                                                "borjes": "latticeel",
+                                                "e": "v",
+                                                "l": "signature"
+                                            },
+                                            "v": {
+                                                "vform": {
+                                                    "borjes": "latticeel",
+                                                    "e": "fin",
+                                                    "l": "signature"
+                                                }
+                                            }
+                                        },
+                                        "spr": {
+                                            "borjes": "list_empty"
+                                        },
+                                        "subj": {
+                                            "borjes": "list",
+                                            "first": {
+                                                "borjes": "variable",
+                                                "index": 3
+                                            },
+                                            "rest": {
+                                                "borjes": "list_empty"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        }
+                    ]
+                },
+                "f": [
+                    "head_dtr",
+                    "non_head_dtrs",
+                    "syn"
+                ],
+                "type": {
+                    "borjes": "latticeel",
+                    "e": "phrase",
+                    "l": "signature"
+                },
+                "v": {
+                    "head_dtr": {
+                        "borjes": "variable",
+                        "index": 4
+                    },
+                    "non_head_dtrs": {
+                        "borjes": "list",
+                        "first": {
+                            "borjes": "variable",
+                            "index": 5
+                        },
+                        "rest": {
+                            "borjes": "list_empty"
+                        }
+                    },
+                    "syn": {
+                        "borjes": "tfstruct",
+                        "f": [
+                            "subj",
+                            "spr",
+                            "comps",
+                            "pos"
+                        ],
+                        "type": {
+                            "borjes": "latticeel",
+                            "e": "category",
+                            "l": "signature"
+                        },
+                        "v": {
+                            "comps": {
+                                "borjes": "list_empty"
+                            },
+                            "pos": {
+                                "borjes": "anything"
+                            },
+                            "spr": {
+                                "borjes": "list_empty"
+                            },
+                            "subj": {
+                                "borjes": "list_empty"
+                            }
+                        }
+                    }
+                }
+            },
+            "name": "Head-Subject Rule",
+            "on": {}
+        },
+        {
+            "arity": 2,
+            "borjes": "rule",
+            "d": [
+                {
+                    "borjes": "variable",
+                    "index": 0
+                },
+                {
+                    "borjes": "variable",
+                    "index": 1
+                }
+            ],
+            "m": {
+                "borjes": "tfstruct",
+                "borjes_bound": {
+                    "borjes": "world",
+                    "titles": [
+                        0,
+                        1,
+                        2,
+                        "2",
+                        4,
+                        "4",
+                        "0",
+                        "1",
+                        "4"
+                    ],
+                    "values": [
+                        {
+                            "borjes": "tfstruct",
+                            "f": [
+                                "syn"
+                            ],
+                            "type": {
+                                "borjes": "latticeel",
+                                "e": "word",
+                                "l": "signature"
+                            },
+                            "v": {
+                                "syn": {
+                                    "borjes": "tfstruct",
+                                    "f": [
+                                        "subj",
+                                        "spr",
+                                        "comps"
+                                    ],
+                                    "type": {
+                                        "borjes": "latticeel",
+                                        "e": "category",
+                                        "l": "signature"
+                                    },
+                                    "v": {
+                                        "comps": {
+                                            "borjes": "list",
+                                            "first": {
+                                                "borjes": "variable",
+                                                "index": 4
+                                            },
+                                            "rest": {
+                                                "borjes": "list_empty"
+                                            }
+                                        },
+                                        "spr": {
+                                            "borjes": "list_empty"
+                                        },
+                                        "subj": {
+                                            "borjes": "list",
+                                            "first": {
+                                                "borjes": "variable",
+                                                "index": 3
+                                            },
+                                            "rest": {
+                                                "borjes": "list_empty"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "borjes": "tfstruct",
+                            "f": [
+                                "syn"
+                            ],
+                            "type": {
+                                "borjes": "latticeel",
+                                "e": "sign",
+                                "l": "signature"
+                            },
+                            "v": {
+                                "syn": {
+                                    "borjes": "variable",
+                                    "index": 8
+                                }
+                            }
+                        },
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        }
+                    ]
+                },
+                "f": [
+                    "head_dtr",
+                    "non_head_dtrs",
+                    "syn"
+                ],
+                "type": {
+                    "borjes": "latticeel",
+                    "e": "phrase",
+                    "l": "signature"
+                },
+                "v": {
+                    "head_dtr": {
+                        "borjes": "variable",
+                        "index": 6
+                    },
+                    "non_head_dtrs": {
+                        "borjes": "list",
+                        "first": {
+                            "borjes": "variable",
+                            "index": 7
+                        },
+                        "rest": {
+                            "borjes": "list_empty"
+                        }
+                    },
+                    "syn": {
+                        "borjes": "tfstruct",
+                        "f": [
+                            "subj",
+                            "spr",
+                            "comps"
+                        ],
+                        "type": {
+                            "borjes": "latticeel",
+                            "e": "category",
+                            "l": "signature"
+                        },
+                        "v": {
+                            "comps": {
+                                "borjes": "list_empty"
+                            },
+                            "spr": {
+                                "borjes": "list_empty"
+                            },
+                            "subj": {
+                                "borjes": "list",
+                                "first": {
+                                    "borjes": "variable",
+                                    "index": 2
+                                },
+                                "rest": {
+                                    "borjes": "list_empty"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "name": "Head-Comp-Rule",
+            "on": {}
+        }
+    ]
+}

@@ -1,0 +1,97 @@
+
+        {
+            "a": {
+                "borjes": "tfstruct",
+                "borjes_bound": {
+                    "borjes": "world",
+                    "titles": [],
+                    "values": []
+                },
+                "f": [],
+                "type": {
+                    "borjes": "latticeel",
+                    "e": "phrase",
+                    "l": "signature"
+                },
+                "v": {}
+            },
+            "borjes": "principle",
+            "c": {
+                "borjes": "tfstruct",
+                "borjes_bound": {
+                    "borjes": "world",
+                    "titles": [
+                        0,
+                        1,
+                        "1",
+                        "1",
+                        "1"
+                    ],
+                    "values": [
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        },
+                        {
+                            "borjes": "anything"
+                        }
+                    ]
+                },
+                "f": [
+                    "syn",
+                    "head_dtr"
+                ],
+                "type": {
+                    "borjes": "latticeel",
+                    "e": "sign",
+                    "l": "signature"
+                },
+                "v": {
+                    "head_dtr": {
+                        "borjes": "fstruct",
+                        "f": [
+                            "syn"
+                        ],
+                        "v": {
+                            "syn": {
+                                "borjes": "fstruct",
+                                "f": [
+                                    "pos"
+                                ],
+                                "v": {
+                                    "pos": {
+                                        "borjes": "variable",
+                                        "index": 4
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "syn": {
+                        "borjes": "fstruct",
+                        "f": [
+                            "pos"
+                        ],
+                        "v": {
+                            "pos": {
+                                "borjes": "variable",
+                                "index": 3
+                            }
+                        }
+                    }
+                }
+            },
+            "name": "Head Feature Principle",
+            "on": {}
+		}
+	
+   
+    

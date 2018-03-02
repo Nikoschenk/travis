@@ -1,0 +1,53 @@
+type_hierarchy
+bot
+   sign phon:list syn:category
+      word 
+      phrase head_dtr:sign non_head_dtrs:list
+   list
+      e_list   
+      ne_list hd:bot tl:list         
+   bool
+      plus
+      minus
+   agr      
+      thd_sg
+      non_thd_sg
+   vform
+      fin
+      nonfin
+         base      
+         inf
+         presp
+         perfp
+   form
+     it
+     there
+     of
+     on
+     to
+     none
+   pos
+      agr_pos agr:agr
+         n case:case
+         d      
+         v vform:vform 
+      form_pos form:form
+         n
+         p
+      adv
+      a         
+      c
+   case
+      nom
+      acc 
+   category pos:pos subj:list spr:list comps:list
+.
+
+
+ 
+
+     
+
+
+
+
