@@ -5,18 +5,11 @@
  */
 package travis;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Scanner;
-import java.util.TreeSet;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import static travis.BoldeJSON.call;
 import static travis.BoldeJSON.normalize;
 import static travis.BoldeJSON.readJSON;
-import static travis.LexicalEntryConverter.JSON_FILE;
 
 /**
  *
@@ -31,7 +24,7 @@ import static travis.LexicalEntryConverter.JSON_FILE;
  *
  * @author niko
  */
-public class PrinciplesConverter {
+public class PrincipleConverter {
 
     public static final String JSON_FILE = "files/head_feature_principle.json";
     //public static final String JSON_FILE = "files/principle.json";

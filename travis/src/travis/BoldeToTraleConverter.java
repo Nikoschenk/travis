@@ -22,13 +22,17 @@ public class BoldeToTraleConverter {
     
     
     
-     public static final String JSON_FILE = "files/formatted.json";
+     //public static final String JSON_FILE = "files/BOLDE_flat_typehiararchy/formatted.json";
+     public static final String JSON_FILE = "files/G11/files/spanish_formatted.json";
      
-     
-     public static final boolean PRINT_LEXICALENTRY = false;
-     public static final boolean PRINT_PRINCIPLE = false;
+     public static final boolean PRINT_LEXICALENTRY = true;
+     public static final boolean PRINT_PRINCIPLE = true;
 
     /**
+     * 
+     * 
+     *
+     * 
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException {
@@ -116,8 +120,8 @@ public class BoldeToTraleConverter {
                     for(int l = 0; l < principleEntries.length(); l++) {
                         JSONObject aPrincipleEntry = (JSONObject)principleEntries.get(l);
                         //System.out.println(aPrincipleEntry);
-                        String trale = PrinciplesConverter.convertPrinciple(aPrincipleEntry);
-                        if(PRINT_PRINCIPLE) System.out.println(trale + "\n");
+                        //String trale = PrinciplesConverter.convertPrinciple(aPrincipleEntry);
+                        //if(PRINT_PRINCIPLE) System.out.println(trale + "\n");
                     }
                 break;
                         
