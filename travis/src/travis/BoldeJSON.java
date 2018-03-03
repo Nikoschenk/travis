@@ -7,10 +7,12 @@ package travis;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -54,9 +56,41 @@ public class BoldeJSON {
         return sorted;
     }
     
+    public static LinkedHashMap<String, String> collectTagsFromBobo(JSONObject bobo) {
+        LinkedHashMap<String, String> tagMap = new LinkedHashMap<String, String>();
+        JSONArray titles = (JSONArray) bobo.getJSONArray("titles");
+        // Accumulate used tags and indices.
+        for (int tIdx = 0; tIdx < titles.length(); tIdx++) {
+             tagMap.put(String.valueOf(tIdx), String.valueOf(titles.get(tIdx)));
+        }
+        System.out.println("Collected tags: " + tagMap);
+        return tagMap;
+    }
+    
+    public static LinkedHashMap<String, String> collectTags(JSONObject obj) {
+        LinkedHashMap<String, String> tagMap = new LinkedHashMap<String, String>();
+        for (String subComp : sortKeys(obj)) {
+            switch (subComp) {
+                case "borjes_bound":
+                    // Get titles and values.
+                    JSONObject bobo = obj.getJSONObject(subComp);
+                    for (String subsubComp : sortKeys(bobo)) {
+                        switch (subsubComp) {
+                            case "titles":
+                                tagMap = collectTagsFromBobo(bobo);
+                        }
+                    }
+            }
+        }
+        return tagMap;
+    }
     
     
-    public static void call(JSONObject c, StringBuilder rval) {
+    
+
+    
+    
+    public static void call(JSONObject c, LinkedHashMap<String, String> tagMap, StringBuilder rval) {
 
         TreeSet<String> sorted = new TreeSet<String>();
         sorted.addAll(c.keySet());
@@ -85,7 +119,7 @@ public class BoldeJSON {
                     rval.append(subtype + ":");
                     
                     // Call function recursively with substructure;
-                    call(substructure, rval);
+                    call(substructure, tagMap, rval);
                     
                 }
                 rval.append(")");
@@ -102,7 +136,13 @@ public class BoldeJSON {
                 }
                 if (str.equals("variable")) {
                     String index = String.valueOf(c.get("index"));
-                    rval.append(index + ",");
+                    if(tagMap!=null) {
+                        // Replace by variable name.
+                        rval.append("_" + tagMap.get(index) + ",");
+                    }
+                    else {
+                        rval.append(index + ",");
+                    }
                 }
                 if (sub.equals("e")) {
                     rval.append(c.get("e"));
@@ -115,13 +155,13 @@ public class BoldeJSON {
             if (sub.equals("first")) {
                 rval.append("[");
                 JSONObject first = (JSONObject) c.get(sub);
-                call(first, rval);
+                call(first, tagMap, rval);
             }
             if (sub.equals("rest")) {
                 rval.append("]");
                 // UNTESTED: recursive call if multiple elements on rest list.
                 JSONObject rest = (JSONObject) c.get(sub);
-                call(rest, rval);
+                call(rest, tagMap, rval);
             }
         }
     }

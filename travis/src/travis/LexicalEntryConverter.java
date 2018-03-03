@@ -6,8 +6,10 @@
 package travis;
 
 import java.io.FileNotFoundException;
+import java.util.LinkedHashMap;
 import org.json.JSONObject;
 import static travis.BoldeJSON.call;
+import static travis.BoldeJSON.collectTags;
 import static travis.BoldeJSON.normalize;
 import static travis.BoldeJSON.readJSON;
 
@@ -17,7 +19,7 @@ import static travis.BoldeJSON.readJSON;
  */
 public class LexicalEntryConverter {
 
-    public static final String JSON_FILE = "files/intrans_verbs.json";
+    public static final String JSON_FILE = "files/BOLDE_flat_typehierarchy/intrans_verbs.json";
 
     /**
      * @param args the command line arguments
@@ -34,7 +36,9 @@ public class LexicalEntryConverter {
     
     public static String convertLexiconEntry(JSONObject obj) throws FileNotFoundException {
         StringBuilder rval = new StringBuilder();
-        call(obj, rval);
+        // no tag map. (not yet implemented for lex entries.)
+        LinkedHashMap<String, String> lexTags = collectTags(obj);
+        call(obj, lexTags, rval);
         rval.append(".");
         String trale = normalize(rval.toString());
         return trale;

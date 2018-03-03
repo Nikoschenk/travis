@@ -6,8 +6,10 @@
 package travis;
 
 import java.io.FileNotFoundException;
+import java.util.LinkedHashMap;
 import org.json.JSONObject;
 import static travis.BoldeJSON.call;
+import static travis.BoldeJSON.collectTags;
 import static travis.BoldeJSON.normalize;
 import static travis.BoldeJSON.readJSON;
 import static travis.BoldeJSON.sortKeys;
@@ -27,8 +29,8 @@ import static travis.BoldeJSON.sortKeys;
  */
 public class PrincipleConverter {
 
-    public static final String JSON_FILE = "files/head_feature_principle.json";
-    //public static final String JSON_FILE = "files/principle.json";
+    public static final String JSON_FILE = "files/BOLDE_flat_typehierarchy/head_feature_principle.json";
+    //public static final String JSON_FILE = "files/BOLDE_flat_typehierarchy/principle.json";
 
     /**
      * @param args the command line arguments
@@ -52,15 +54,18 @@ public class PrincipleConverter {
             switch (aComp) {
                 case "a":
                     JSONObject a = obj.getJSONObject(aComp);
-                    call(a, rval);
+                    LinkedHashMap<String, String> aTags = collectTags(a);
+                    call(a, aTags, rval);
                     rval.append(" *> ");
                     break;
+                    
                 case "c":
                     JSONObject c = obj.getJSONObject(aComp);
-                    call(c, rval);
+                    LinkedHashMap<String, String> cTags = collectTags(c);
+                    call(c, cTags, rval);
                     rval.append(" ");
-
                     break;
+                    
                 case "name":
                     String principleName = obj.getString(aComp);
                     rval.insert(0, "% "+principleName + "\n");

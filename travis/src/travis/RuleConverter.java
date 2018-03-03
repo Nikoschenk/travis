@@ -11,6 +11,8 @@ import java.util.LinkedHashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import static travis.BoldeJSON.call;
+import static travis.BoldeJSON.collectTags;
+import static travis.BoldeJSON.collectTagsFromBobo;
 import static travis.BoldeJSON.normalize;
 import static travis.BoldeJSON.readJSON;
 import static travis.BoldeJSON.sortKeys;
@@ -41,7 +43,6 @@ public class RuleConverter {
     public static String convertRule(JSONObject obj) throws FileNotFoundException {
         StringBuilder rval = new StringBuilder();
 
-        LinkedHashMap<String, String> idxMap = new LinkedHashMap<String, String>();
         ArrayList<String> daughterIndices = new ArrayList<String>();
         
         for (String aComp : sortKeys(obj)) {
@@ -59,16 +60,17 @@ public class RuleConverter {
                     break;
                 case "m":
                     JSONObject m = obj.getJSONObject(aComp);
-                    call(m, rval);
+                    
+                    LinkedHashMap tagMap = collectTags(m);
+                    call(m, tagMap, rval);
+                    
                     rval.append("\n===>\n");
                     
                     // Get the values.
                     for(String subComp : sortKeys(m)) {
-                        
                         switch(subComp) {
                             case "borjes_bound":
                                 // Get titles and values.
-                            
                                 JSONObject bobo = m.getJSONObject(subComp);
                                 for (String subsubComp : sortKeys(bobo)) {
                                     
@@ -76,12 +78,7 @@ public class RuleConverter {
                                     switch (subsubComp) {
 
                                         case "titles":
-                                            JSONArray titles = (JSONArray) bobo.getJSONArray(subsubComp);
-                                            // Accumulate used indices.
-                                            for(int tIdx = 0; tIdx < titles.length(); tIdx++) {
-                                                idxMap.put(String.valueOf(tIdx), String.valueOf(titles.get(tIdx)));
-                                            }
-                                            //System.out.println(idxMap);
+                                            tagMap  = collectTagsFromBobo(bobo);
                                             break;
 
                                         case "values":
@@ -91,8 +88,8 @@ public class RuleConverter {
                                                 JSONObject aValue = values.getJSONObject(v);
                                                 //System.out.println(aValue);
                                                 rval.append("cat> ");
-                                                rval.append("(" + idxMap.get(String.valueOf(v)) + ", ");
-                                                call(aValue, rval);
+                                                rval.append("(_" + tagMap.get(String.valueOf(v)) + ", ");
+                                                call(aValue, tagMap, rval);
                                                 if (v != values.length() - 1) {
                                                     rval.append(",\n");
                                                 }
