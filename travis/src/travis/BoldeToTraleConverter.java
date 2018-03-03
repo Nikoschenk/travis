@@ -21,9 +21,11 @@ public class BoldeToTraleConverter {
     
     
     
+    // Gert's first grammar.
+    public static final String JSON_FILE = "files/GertsClone_reduced_hierarchy/files/spanish.json";
     
-     //public static final String JSON_FILE = "files/BOLDE_flat_typehiararchy/formatted.json";
-     public static final String JSON_FILE = "files/G11_fixed/files/spanish_formatted.json";
+    // Gert's second grammar. 
+    //public static final String JSON_FILE = "files/G11_fixed/files/spanish_formatted.json";
      
      public static final boolean PRINT_LEXICALENTRY = true;
      public static final boolean PRINT_PRINCIPLE = true;
@@ -96,7 +98,7 @@ public class BoldeToTraleConverter {
                                         // Get trale.
                                         String lexStrTrale = LexicalEntryConverter.convertLexiconEntry(lexInfo);
                                         // print trale format.
-                                        if(PRINT_LEXICALENTRY) System.out.println(aLexemeString.toLowerCase() + " => " + lexStrTrale + "\n");
+                                        if(PRINT_LEXICALENTRY) System.out.println(aLexemeString.toLowerCase() + " ---> " + lexStrTrale + "\n");
                                     }
                                     break;
                             }

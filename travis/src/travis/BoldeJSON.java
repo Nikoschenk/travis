@@ -49,6 +49,8 @@ public class BoldeJSON {
                 .replace(")[]", ")")
                 .replace("][]", "]")
                 .replace(")\ncat", "),\ncat") // add commas between child nodes. 
+                 // TODO.
+                 // Replace PHON features.
                  ;
     }
     
@@ -89,7 +91,9 @@ public class BoldeJSON {
     
     
     
-
+    public static String normalizeToTraleString(String toNormalize) {
+        return toNormalize.replaceAll("\\s+", "_").replace("-", "_").toLowerCase();
+    }
     
     
     public static void call(JSONObject c, LinkedHashMap<String, String> tagMap, StringBuilder rval) {

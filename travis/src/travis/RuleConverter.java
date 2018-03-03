@@ -14,6 +14,7 @@ import static travis.BoldeJSON.call;
 import static travis.BoldeJSON.collectTags;
 import static travis.BoldeJSON.collectTagsFromBobo;
 import static travis.BoldeJSON.normalize;
+import static travis.BoldeJSON.normalizeToTraleString;
 import static travis.BoldeJSON.readJSON;
 import static travis.BoldeJSON.sortKeys;
 
@@ -107,6 +108,7 @@ public class RuleConverter {
                     break;
                 case "name":
                     String ruleName = obj.getString(aComp);
+                    rval.insert(0, normalizeToTraleString(ruleName) + " rule \n");
                     rval.insert(0, "% " + ruleName + "\n");
                     break;
             }
