@@ -55,7 +55,7 @@ public class RuleConverter {
                         JSONObject aDaughter = d.getJSONObject(dIdx);
                         daughterIndices.add(String.valueOf(aDaughter.getInt("index")));
                     }
-                    System.out.println("Daughter indices: " + daughterIndices);
+                    //System.out.println("Daughter indices: " + daughterIndices);
                    
                     break;
                 case "m":

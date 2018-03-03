@@ -47,7 +47,9 @@ public class BoldeJSON {
                 .replace(",\n", ")")
                 // Replace isolated empty lists.
                 .replace(")[]", ")")
-                .replace("][]", "]");
+                .replace("][]", "]")
+                .replace(")\ncat", "),\ncat") // add commas between child nodes. 
+                 ;
     }
     
     public static TreeSet<String> sortKeys(JSONObject unsorted) {
@@ -63,7 +65,7 @@ public class BoldeJSON {
         for (int tIdx = 0; tIdx < titles.length(); tIdx++) {
              tagMap.put(String.valueOf(tIdx), String.valueOf(titles.get(tIdx)));
         }
-        System.out.println("Collected tags: " + tagMap);
+        //System.out.println("Collected tags: " + tagMap);
         return tagMap;
     }
     
@@ -103,10 +105,15 @@ public class BoldeJSON {
 
             if (sub.equals("type")) {
                 JSONObject t = (JSONObject) c.get(sub);
+                
                 if (t.has("e")) {
                     rval.append(t.get("e") + ",");
                 } else {
                     System.out.println("t has no e!");
+                    // CAREFUL! Last change made!!!
+                    // UNTESTED!
+                    call(t, tagMap, rval);
+                    
                 }
 
             }
@@ -163,7 +170,6 @@ public class BoldeJSON {
             }
             if (sub.equals("rest")) {
                 rval.append("]");
-                // UNTESTED: recursive call if multiple elements on rest list.
                 JSONObject rest = (JSONObject) c.get(sub);
                 call(rest, tagMap, rval);
             }

@@ -23,7 +23,7 @@ public class BoldeToTraleConverter {
     
     
      //public static final String JSON_FILE = "files/BOLDE_flat_typehiararchy/formatted.json";
-     public static final String JSON_FILE = "files/G11_fixed/files/spanish.json";
+     public static final String JSON_FILE = "files/G11_fixed/files/spanish_formatted.json";
      
      public static final boolean PRINT_LEXICALENTRY = true;
      public static final boolean PRINT_PRINCIPLE = true;
