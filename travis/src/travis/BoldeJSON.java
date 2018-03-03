@@ -103,8 +103,12 @@ public class BoldeJSON {
 
             if (sub.equals("type")) {
                 JSONObject t = (JSONObject) c.get(sub);
-                rval.append(t.get("e") + ",");
-                
+                if (t.has("e")) {
+                    rval.append(t.get("e") + ",");
+                } else {
+                    System.out.println("t has no e!");
+                }
+
             }
 
             if (sub.equals("v")) {

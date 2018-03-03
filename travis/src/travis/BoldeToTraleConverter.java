@@ -23,10 +23,11 @@ public class BoldeToTraleConverter {
     
     
      //public static final String JSON_FILE = "files/BOLDE_flat_typehiararchy/formatted.json";
-     public static final String JSON_FILE = "files/G11/files/spanish_formatted.json";
+     public static final String JSON_FILE = "files/G11_fixed/files/spanish.json";
      
      public static final boolean PRINT_LEXICALENTRY = true;
      public static final boolean PRINT_PRINCIPLE = true;
+     public static final boolean PRINT_RULE = true;
 
     /**
      * 
@@ -108,16 +109,25 @@ public class BoldeToTraleConverter {
                     
                 case "rules":
                     System.out.println("Converting rules...");
+                    // Get all rule entries.
+                    JSONArray ruleEntries = (JSONArray) obj.getJSONArray(aComp);
+                    //System.out.println(ruleEntries);
+                    for(int r = 0; r < ruleEntries.length(); r++) {
+                        JSONObject aRuleEntry = (JSONObject)ruleEntries.get(r);
+                        //System.out.println(aRuleEntry);
+                        String trale = RuleConverter.convertRule(aRuleEntry);
+                        if(PRINT_RULE) System.out.println(trale + "\n");
+                    }
                     break;
                         
                     
                 case "principles":
                     System.out.println("Converting principles...");
-                    // Get all lexicon entries.
+                    // Get all principle entries.
                     JSONArray principleEntries = (JSONArray) obj.getJSONArray(aComp);
                     //System.out.println(principleEntries);
-                    for(int l = 0; l < principleEntries.length(); l++) {
-                        JSONObject aPrincipleEntry = (JSONObject)principleEntries.get(l);
+                    for(int p = 0; p < principleEntries.length(); p++) {
+                        JSONObject aPrincipleEntry = (JSONObject)principleEntries.get(p);
                         //System.out.println(aPrincipleEntry);
                         String trale = PrincipleConverter.convertPrinciple(aPrincipleEntry);
                         if(PRINT_PRINCIPLE) System.out.println(trale + "\n");
