@@ -40,11 +40,18 @@ public class BoldeJSON {
          return trale
                 .replace(",,", ",")
                 .replace("(,", "(")
+                .replace(",]", "]")
                 .replace(",)", ")")
                 .replace(",\n", ")")
                 // Replace isolated empty lists.
                 .replace(")[]", ")")
                 .replace("][]", "]");
+    }
+    
+    public static TreeSet<String> sortKeys(JSONObject unsorted) {
+        TreeSet<String> sorted = new TreeSet<String>();
+        sorted.addAll(unsorted.keySet());
+        return sorted;
     }
     
     
@@ -94,7 +101,8 @@ public class BoldeJSON {
                     rval.append("(");
                 }
                 if (str.equals("variable")) {
-                    rval.append(c.get("index"));
+                    String index = String.valueOf(c.get("index"));
+                    rval.append(index + ",");
                 }
                 if (sub.equals("e")) {
                     rval.append(c.get("e"));

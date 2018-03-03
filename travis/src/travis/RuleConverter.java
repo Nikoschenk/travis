@@ -6,11 +6,14 @@
 package travis;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import static travis.BoldeJSON.call;
 import static travis.BoldeJSON.normalize;
 import static travis.BoldeJSON.readJSON;
+import static travis.BoldeJSON.sortKeys;
 
 /**
  *
@@ -38,12 +41,20 @@ public class RuleConverter {
     public static String convertRule(JSONObject obj) throws FileNotFoundException {
         StringBuilder rval = new StringBuilder();
 
-        for (String aComp : obj.keySet()) {
+        LinkedHashMap<String, String> idxMap = new LinkedHashMap<String, String>();
+        ArrayList<String> daughterIndices = new ArrayList<String>();
+        
+        for (String aComp : sortKeys(obj)) {
             // System.out.println("aComp: " + aComp);
             switch (aComp) {
                 case "d":
                     // TODO: Get the daughter indices !
-                    
+                    JSONArray d = obj.getJSONArray(aComp);
+                    for(int dIdx = 0; dIdx < d.length(); dIdx++) {
+                        JSONObject aDaughter = d.getJSONObject(dIdx);
+                        daughterIndices.add(String.valueOf(aDaughter.getInt("index")));
+                    }
+                    System.out.println("Daughter indices: " + daughterIndices);
                    
                     break;
                 case "m":
@@ -52,41 +63,54 @@ public class RuleConverter {
                     rval.append("\n===>\n");
                     
                     // Get the values.
-                    for(String subComp : m.keySet()) {
-                        System.out.println(subComp);
+                    for(String subComp : sortKeys(m)) {
+                        
                         switch(subComp) {
                             case "borjes_bound":
                                 // Get titles and values.
-                                
-                                JSONObject d = m.getJSONObject(subComp);
-                                for(String subsubComp : d.keySet()) {
-                                    switch(subsubComp) {
-                                    case "values":
-                                        JSONArray values = (JSONArray) d.getJSONArray(subsubComp);
-                                        for(int v = 0; v < values.length(); v++) {
-                                            JSONObject aValue = values.getJSONObject(v);
-                                            System.out.println(aValue);
-                                            rval.append("cat> ");
-                                            call(aValue, rval);
-                                            if(v!=values.length()-1) {
-                                                rval.append(",\n");
+                            
+                                JSONObject bobo = m.getJSONObject(subComp);
+                                for (String subsubComp : sortKeys(bobo)) {
+                                    
+                                    
+                                    switch (subsubComp) {
+
+                                        case "titles":
+                                            JSONArray titles = (JSONArray) bobo.getJSONArray(subsubComp);
+                                            // Accumulate used indices.
+                                            for(int tIdx = 0; tIdx < titles.length(); tIdx++) {
+                                                idxMap.put(String.valueOf(tIdx), String.valueOf(titles.get(tIdx)));
                                             }
-                                            rval.append("\n");
-                                        }
-                                        break;
+                                            //System.out.println(idxMap);
+                                            break;
+
+                                        case "values":
+                                            JSONArray values = (JSONArray) bobo.getJSONArray(subsubComp);
+                                            // for all daughters.
+                                            for (int v = 0; v < daughterIndices.size(); v++) {
+                                                JSONObject aValue = values.getJSONObject(v);
+                                                //System.out.println(aValue);
+                                                rval.append("cat> ");
+                                                rval.append("(" + idxMap.get(String.valueOf(v)) + ", ");
+                                                call(aValue, rval);
+                                                if (v != values.length() - 1) {
+                                                    rval.append(",\n");
+                                                }
+                                                rval.append("\n");
+                                            }
+                                            break;
                                     }
                                 }
-                                
+
                                 break;
-                            
+
                         }
                     }
-                    
 
                     break;
                 case "name":
                     String ruleName = obj.getString(aComp);
-                    rval.insert(0, "% "+ruleName + "\n");
+                    rval.insert(0, "% " + ruleName + "\n");
                     break;
             }
         }

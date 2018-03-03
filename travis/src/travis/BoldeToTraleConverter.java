@@ -9,9 +9,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.TreeSet;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import static travis.BoldeJSON.sortKeys;
 
 /**
  *
@@ -53,7 +53,7 @@ public class BoldeToTraleConverter {
         JSONObject obj = new JSONObject(json);
 
         //  System.out.println(principles);
-        for (String aComp : obj.keySet()) {
+        for (String aComp : sortKeys(obj)) {
             switch (aComp) {
                 case "lexicon":
                     System.out.println("Converting lexical entries...");
@@ -66,9 +66,8 @@ public class BoldeToTraleConverter {
 
                         ArrayList<String> lexemeStrings = new ArrayList<>();
                         
-                        TreeSet<String> sorted = new TreeSet<String>();
-                        sorted.addAll(aLexEntry.keySet());
-                        for (String aLexComp : sorted) {
+                        
+                        for (String aLexComp : sortKeys(aLexEntry)) {
                             switch (aLexComp) {
                                 case "common":
                                     break;
@@ -120,8 +119,8 @@ public class BoldeToTraleConverter {
                     for(int l = 0; l < principleEntries.length(); l++) {
                         JSONObject aPrincipleEntry = (JSONObject)principleEntries.get(l);
                         //System.out.println(aPrincipleEntry);
-                        //String trale = PrinciplesConverter.convertPrinciple(aPrincipleEntry);
-                        //if(PRINT_PRINCIPLE) System.out.println(trale + "\n");
+                        String trale = PrincipleConverter.convertPrinciple(aPrincipleEntry);
+                        if(PRINT_PRINCIPLE) System.out.println(trale + "\n");
                     }
                 break;
                         

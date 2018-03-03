@@ -5,13 +5,7 @@
  */
 package travis;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Scanner;
-import java.util.TreeSet;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import static travis.BoldeJSON.call;
 import static travis.BoldeJSON.normalize;

@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import static travis.BoldeJSON.call;
 import static travis.BoldeJSON.normalize;
 import static travis.BoldeJSON.readJSON;
+import static travis.BoldeJSON.sortKeys;
 
 /**
  *
@@ -46,7 +47,7 @@ public class PrincipleConverter {
     public static String convertPrinciple(JSONObject obj) throws FileNotFoundException {
         StringBuilder rval = new StringBuilder();
 
-        for (String aComp : obj.keySet()) {
+        for (String aComp : sortKeys(obj)) {
             // System.out.println("aComp: " + aComp);
             switch (aComp) {
                 case "a":
