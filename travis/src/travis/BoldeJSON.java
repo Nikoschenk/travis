@@ -48,6 +48,7 @@ public class BoldeJSON {
                 // Replace isolated empty lists.
                 .replace(")[]", ")")
                 .replace("][]", "]")
+                .replace(" .", ".")
                 .replace(")\ncat", "),\ncat") // add commas between child nodes. 
                  // TODO.
                  // Replace PHON features.
