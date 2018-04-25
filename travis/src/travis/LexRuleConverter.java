@@ -6,13 +6,13 @@
 package travis;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import static travis.BoldeJSON.call;
 import static travis.BoldeJSON.collectTags;
 import static travis.BoldeJSON.normalize;
+import static travis.BoldeJSON.normalizeToTraleString;
 import static travis.BoldeJSON.readJSON;
 import static travis.BoldeJSON.sortKeys;
 
@@ -21,7 +21,7 @@ import static travis.BoldeJSON.sortKeys;
  *
  * @author niko
  */
-public class LexicalEntryConverter {
+public class LexRuleConverter {
 
     public static final String JSON_FILE = "files/BOLDE_flat_typehierarchy/head_feature_principle.json";
     //public static final String JSON_FILE = "files/BOLDE_flat_typehierarchy/principle.json";
@@ -35,49 +35,50 @@ public class LexicalEntryConverter {
         
         String json = readJSON(JSON_FILE);
         JSONObject obj = new JSONObject(json);
-        String trale = convertLexEntry(obj);
+        String trale = convertLexRule(obj);
         System.out.println(trale);
     }
     
     
-    public static String convertLexEntry(JSONObject obj) throws FileNotFoundException {
-        StringBuilder allWords = new StringBuilder();
-        ArrayList<String> words = new ArrayList<String>();
-        
-        StringBuilder template = new StringBuilder();
+    public static String convertLexRule(JSONObject obj) throws FileNotFoundException {
+        StringBuilder rval = new StringBuilder();
 
         for (String aComp : sortKeys(obj)) {
             // System.out.println("aComp: " + aComp);
             switch (aComp) {
-                // AVM of lexicon entry.
                 case "a":
                     JSONObject a = obj.getJSONObject(aComp);
                     LinkedHashMap<String, String> aTags = collectTags(a);
-                    call(a, aTags, template);
+                    call(a, aTags, rval);
+                    rval.append(" **> ");
                     break;
                     
-                // List of word realizations, e.g., "fido", "john", "mary",...
                 case "c":
-                    JSONArray f = obj.getJSONArray(aComp);
-                    for (int tIdx = 0; tIdx < f.length(); tIdx++) {
-                        String aLexiconWord = (String) f.get(tIdx);
-                        words.add(aLexiconWord.toLowerCase());
-                    }
+                    JSONObject c = obj.getJSONObject(aComp);
+                    LinkedHashMap<String, String> cTags = collectTags(c);
+                    call(c, cTags, rval);
+                    rval.append(" ");
                     break;
                     
                 case "name":
-                    String lexEntryTemplateName = obj.getString(aComp);
-                    allWords.insert(0, "% "+lexEntryTemplateName + "\n");
+                    String lexRuleName = obj.getString(aComp);
+                    rval.insert(0, normalizeToTraleString(lexRuleName) + " lex_rule \n");
+                    rval.insert(0, "% " + lexRuleName + "\n");
+                    break;
+                case "f":
+                    rval.append("\nmorphs\n");
+                    JSONArray f = obj.getJSONArray(aComp);
+                    for (int tIdx = 0; tIdx < f.length(); tIdx++) {
+                        JSONObject tuple = (JSONObject) f.get(tIdx);
+                        rval.append(tuple.get("in") + " becomes " + tuple.get("out") + ", ");
+                    }
+                    rval.append(" ");
                     break;
             }
         }
-        String trale = normalize(template.toString());
-        
-        // For each realization of the template, i.e. for all words in the list.
-        for(String w : words) {
-            allWords.append(w + " ---> " + trale + ".\n");
-        }
-        return allWords.toString();
+        rval.append(".");
+        String trale = normalize(rval.toString());
+        return trale;
     }
 
     

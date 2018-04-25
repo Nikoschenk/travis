@@ -49,10 +49,14 @@ public class BoldeJSON {
                 .replace(")[]", ")")
                 .replace("][]", "]")
                 .replace(" .", ".")
+                .replace(",.", ".")
+                .replace(", .", ".")
                 .replace(")\ncat", "),\ncat") // add commas between child nodes. 
                  // TODO.
                  // Replace PHON features.
                  ;
+         
+         // TODO: Replace closing bracket immediately followed by character: )[a-z]
     }
     
     public static TreeSet<String> sortKeys(JSONObject unsorted) {
