@@ -51,6 +51,7 @@ public class BoldeJSON {
                 .replace(" .", ".")
                 .replace(",.", ".")
                 .replace(", .", ".")
+                .replace(")(W", "),(W") 
                 .replace(")\ncat", "),\ncat") // add commas between child nodes. 
                  // TODO.
                  // Replace PHON features.
@@ -113,28 +114,31 @@ public class BoldeJSON {
             }
 
             if (sub.equals("type")) {
+                
+                if(c.get(sub) instanceof String) {
+                    //System.out.println("-");
+                }
+                else {
                 JSONObject t = (JSONObject) c.get(sub);
                 
                 if (t.has("e")) {
                     rval.append(t.get("e") + ",");
                 } else {
-                    System.out.println("t has no e!");
+                    //System.out.println("t has no e!");
                     // CAREFUL! Last change made!!!
                     // UNTESTED!
                     call(t, tagMap, rval);
                     
                 }
-
+            }
             }
 
             if (sub.equals("v")) {
                 JSONObject v = (JSONObject) c.get(sub);
-                int children = 0;
+                
                 for (String subtype : v.keySet()) {
-                    children++;
-                    if(children == v.keySet().size()) {
-                        rval.append(",");
-                    }
+                
+                    rval.append(",");
                     JSONObject substructure = v.getJSONObject(subtype);
                     rval.append(subtype + ":");
                     

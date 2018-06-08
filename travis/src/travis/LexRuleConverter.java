@@ -65,6 +65,7 @@ public class LexRuleConverter {
                     rval.insert(0, normalizeToTraleString(lexRuleName) + " lex_rule \n");
                     rval.insert(0, "% " + lexRuleName + "\n");
                     break;
+                    
                 case "f":
                     rval.append("\nmorphs\n");
                     JSONArray f = obj.getJSONArray(aComp);
@@ -74,6 +75,17 @@ public class LexRuleConverter {
                     }
                     rval.append(" ");
                     break;
+                
+                    // (W,y) becomes (W,ied).
+                case "p":
+                    JSONArray p = obj.getJSONArray(aComp);
+                    for (int tIdx = 0; tIdx < p.length(); tIdx++) {
+                        JSONObject tuple = (JSONObject) p.get(tIdx);
+                        rval.append("(W," + tuple.get("in") + ") becomes (W," + tuple.get("out") + ")");
+                    }
+                    rval.append(" ");
+                    break;
+                    
             }
         }
         rval.append(".");

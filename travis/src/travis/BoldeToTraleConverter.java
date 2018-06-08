@@ -7,7 +7,7 @@ package travis;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,19 +20,31 @@ import static travis.BoldeJSON.sortKeys;
 public class BoldeToTraleConverter {
     
     
+    // Format command for json pretty print:
+    // cat unformatted.json | python -m json.tool > formatted.json
+    
+    
     
     // Gert's first grammar.
    // public static final String JSON_FILE = "files/GertsClone_reduced_hierarchy/files/spanish.json";
     
     // Gert's second grammar. 
-    //public static final String JSON_FILE = "files/G11_fixed/files/spanish_formatted.json";
+    // public static final String JSON_FILE = "files/G11_fixed/files/spanish_formatted.json";
     // public static final String JSON_FILE = "files/G11.json";
-      public static final String JSON_FILE = "files/f73.json.form.json";
+    // public static final String JSON_FILE = "files/f73.json.form.json";
+    //public static final String JSON_FILE = "files/p24/p24/files/f24.formatted.json";
+    
+     //public static final String JSON_FILE = "files/p24_new/F4_formatted.json";
+     public static final String JSON_FILE = "files/p24_new/f24_formatted.json";
+     
+     public static final boolean CONVERT_LEXRULES = true;
      
      public static final boolean PRINT_LEXICALENTRY = true;
      public static final boolean PRINT_PRINCIPLE = true;
+     public static final boolean PRINT_ABBREVIATION = true;
      public static final boolean PRINT_LEXRULE = true;
      public static final boolean PRINT_RULE = true;
+     public static final boolean PRINT_SIGNATURE = true;
 
     /**
      * 
@@ -53,8 +65,7 @@ public class BoldeToTraleConverter {
         }
         s.close();
 
-        //int a = obj.getInt("age");
-        // String s= obj.getString("name");
+        
         String json = sb.toString();
         JSONObject obj = new JSONObject(json);
 
@@ -66,7 +77,7 @@ public class BoldeToTraleConverter {
                 // lexical entry.
                 case "lexicon":
                     System.out.println("Converting lexical entries...");
-                    // Get all lexRule entries.
+                    // Get all lex entries.
                     JSONArray lexEntries = (JSONArray) obj.getJSONArray(aComp);
                     //System.out.println(lexEntries);
                     for(int p = 0; p < lexEntries.length(); p++) {
@@ -78,6 +89,7 @@ public class BoldeToTraleConverter {
                 break;
                 
                 
+                    // Original Bolde Lexicon Entry Converter.
 //                case "lexicon":
 //                    System.out.println("Converting lexical entries (BOLDE ORIGINAL)...");
 //                    // Get all lexicon entries.
@@ -129,6 +141,46 @@ public class BoldeToTraleConverter {
                 case "whatever":
                     break;
                     
+                // signature
+                case "global":
+                    System.out.println("Converting signature...");
+                    LinkedHashMap<String, String> typeToFeatures = new LinkedHashMap<>();
+                                
+                    // Get the features that the user specified in the GUI.
+                    for (String anotherComp : sortKeys(obj)) {
+                        switch (anotherComp) {
+                            case "declarations":
+                                JSONArray declarationEntries = (JSONArray) obj.getJSONArray(anotherComp);
+                                for (int d = 0; d < declarationEntries.length(); d++) {
+                                    JSONObject aDeclarationEntry = (JSONObject) declarationEntries.get(d);
+                                    //System.out.println(aDeclarationEntry);
+                                    // Get the type.
+                                    String typeName = aDeclarationEntry.getString("name");
+                                    
+                                    // Get its features and their types.
+                                    JSONObject v = aDeclarationEntry.getJSONObject("fstr").getJSONObject("v");
+                                    StringBuilder featsBuilder = new StringBuilder();
+                                    for (String aFeature : sortKeys(v)) {
+                                        featsBuilder.append(aFeature + ":");
+                                        JSONObject typeOfFeatureObj = (JSONObject) v.get(aFeature);
+                                        String typeOfFeature = (String) typeOfFeatureObj.get("e");
+                                        featsBuilder.append(typeOfFeature + " ");
+                                    }
+                                    if(featsBuilder.toString().length() > 0) {
+                                        typeToFeatures.put(typeName, featsBuilder.toString().trim());
+                                    }
+                                }
+                                break;
+                        }
+                    }
+                    
+                    // 
+                    JSONObject type = obj.getJSONObject(aComp).getJSONObject("signature").getJSONObject("type");
+                    String tralesig = SignatureConverter.convertSignature(type, -1, typeToFeatures);
+                    if(PRINT_SIGNATURE) System.out.println(tralesig + "\n");
+                    
+                break;    
+                    
                 case "rules":
                     System.out.println("Converting rules...");
                     // Get all rule entries.
@@ -144,6 +196,7 @@ public class BoldeToTraleConverter {
                     
                      
                 case "lexRules":
+                    if(CONVERT_LEXRULES) {
                     System.out.println("Converting lexical rules...");
                     // Get all lexRule entries.
                     JSONArray lexRuleEntries = (JSONArray) obj.getJSONArray(aComp);
@@ -153,6 +206,7 @@ public class BoldeToTraleConverter {
                         //System.out.println(aLexRuleEntry);
                         String trale = LexRuleConverter.convertLexRule(aLexRuleEntry);
                         if(PRINT_LEXRULE) System.out.println(trale + "\n");
+                    }
                     }
                 break;    
                         
@@ -169,11 +223,21 @@ public class BoldeToTraleConverter {
                         if(PRINT_PRINCIPLE) System.out.println(trale + "\n");
                     }
                 break;
-                        
-             
                 
-                    
-                    
+                case "abbreviations":
+                    System.out.println("Converting abbreviations...");
+                    // Get all lex entries.
+                    JSONArray abbr = (JSONArray) obj.getJSONArray(aComp);
+                   // System.out.println(abbr);
+                    for(int a = 0; a < abbr.length(); a++) {
+                        JSONObject anAbbrEntry = (JSONObject) abbr.get(a);
+                        //System.out.println(anAbbrEntry);
+                        String trale = AbbreviationConverter.convertAbbreviation(anAbbrEntry);
+                        if(PRINT_ABBREVIATION) System.out.println(trale);
+                    }
+                    System.out.println();
+                    break;
+
             }
             
         }
