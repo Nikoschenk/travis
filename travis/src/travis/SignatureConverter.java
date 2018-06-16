@@ -27,22 +27,21 @@ public class SignatureConverter {
       
     }
     
-       public static String convertSignature(JSONObject obj, int indent, LinkedHashMap<String, String> typeToFeatures) throws FileNotFoundException {
+    public static void convertSignature(JSONObject obj, int indent, LinkedHashMap<String, String> typeToFeatures, StringBuilder sigBuilder) throws FileNotFoundException {
         indent++;
         for (String aType : sortKeys(obj)) {
             StringBuilder indentB = new StringBuilder();
             for (int i = 0; i < indent; i++) {
                 indentB.append("   ");
             }
-            System.out.print(indentB.toString() + aType);
+            sigBuilder.append(indentB.toString() + aType.toLowerCase());
             if(typeToFeatures.containsKey(aType)) {
-                System.out.print(" " + typeToFeatures.get(aType));
+                sigBuilder.append(" " + typeToFeatures.get(aType).toLowerCase());
             }
-            System.out.println();
+            sigBuilder.append("\n");
             if (obj.get(aType) instanceof JSONObject) {
-                convertSignature(obj.getJSONObject(aType), indent, typeToFeatures);
+                convertSignature(obj.getJSONObject(aType), indent, typeToFeatures, sigBuilder);
             }
         }
-        return "";
     }
 }

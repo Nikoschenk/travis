@@ -6,9 +6,7 @@
 package travis;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import static travis.BoldeJSON.call;
 import static travis.BoldeJSON.collectTags;
@@ -23,20 +21,13 @@ import static travis.BoldeJSON.sortKeys;
  */
 public class AbbreviationConverter {
     
-    //public static final String JSON_FILE = "files/p24/p24/files/abbr.json";
-    public static final String JSON_FILE = "files/p24/p24/files/abbr2.json";
-
+   
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         
-        System.out.println("Converting JSON to Trale format...");
-        
-        String json = readJSON(JSON_FILE);
-        JSONObject obj = new JSONObject(json);
-        String trale = convertAbbreviation(obj);
-        System.out.println(trale);
+     
     }
     
     

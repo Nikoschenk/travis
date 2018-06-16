@@ -12,6 +12,8 @@ import java.util.Scanner;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -39,7 +41,7 @@ public class BoldeJSON {
     
     
     public static String normalize(String trale) {
-         return trale
+        trale = trale
                 .replace(",,", ",")
                 .replace("(,", "(")
                 .replace(",]", "]")
@@ -51,13 +53,31 @@ public class BoldeJSON {
                 .replace(" .", ".")
                 .replace(",.", ".")
                 .replace(", .", ".")
-                .replace(")(W", "),(W") 
+                .replace(")(W", "),(W")
                 .replace(")\ncat", "),\ncat") // add commas between child nodes. 
-                 // TODO.
-                 // Replace PHON features.
-                 ;
-         
-         // TODO: Replace closing bracket immediately followed by character: )[a-z]
+                // TODO.
+                // Replace PHON features.
+                // TODO: Replace closing bracket immediately followed by character: )[a-z]
+                ;
+
+        // Replace uppercase letters by lowercase macro.
+        String[] traleLines = trale.split("\\n");
+        String abbreviationsRegex = "[A-Z]+";
+        Pattern pattern = Pattern.compile(abbreviationsRegex);
+        for (String traleLine : traleLines) {
+            Matcher matcher = pattern.matcher(traleLine);
+            while (matcher.find()) {
+                String match = matcher.group(0);
+                // Do not replace upper case letters in comments.
+                if (!traleLine.startsWith("%")) {
+                    String newTraleLine = traleLine.replace(match, "@" + match.toLowerCase());
+                    trale = trale.replace(traleLine, newTraleLine);
+                }
+            }
+        }
+
+        return trale;
+
     }
     
     public static TreeSet<String> sortKeys(JSONObject unsorted) {

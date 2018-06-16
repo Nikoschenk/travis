@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package travis;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 import org.json.JSONArray;
@@ -18,61 +14,96 @@ import static travis.BoldeJSON.sortKeys;
  * @author niko
  */
 public class BoldeToTraleConverter {
-    
-    
+
     // Format command for json pretty print:
     // cat unformatted.json | python -m json.tool > formatted.json
-    
-    
-    
     // Gert's first grammar.
-   // public static final String JSON_FILE = "files/GertsClone_reduced_hierarchy/files/spanish.json";
-    
+    // public static final String JSON_FILE = "files/GertsClone_reduced_hierarchy/files/spanish.json";
     // Gert's second grammar. 
-    // public static final String JSON_FILE = "files/G11_fixed/files/spanish_formatted.json";
+     public static final String JSON_FILE = "files/G11_fixed/files/spanish_formatted.json";
     // public static final String JSON_FILE = "files/G11.json";
     // public static final String JSON_FILE = "files/f73.json.form.json";
-    //public static final String JSON_FILE = "files/p24/p24/files/f24.formatted.json";
-    
-     //public static final String JSON_FILE = "files/p24_new/F4_formatted.json";
-     public static final String JSON_FILE = "files/p24_new/f24_formatted.json";
-     
-     public static final boolean CONVERT_LEXRULES = true;
-     
-     public static final boolean PRINT_LEXICALENTRY = true;
-     public static final boolean PRINT_PRINCIPLE = true;
-     public static final boolean PRINT_ABBREVIATION = true;
-     public static final boolean PRINT_LEXRULE = true;
-     public static final boolean PRINT_RULE = true;
-     public static final boolean PRINT_SIGNATURE = true;
+    // public static final String JSON_FILE = "files/p24/p24/files/f24.formatted.json";
+    // public static final String JSON_FILE = "files/p24_new/F4_formatted.json";
+    // public static final String JSON_FILE = "files/p24_new/f24_formatted.json";
+    //public static final String JSON_FILE = "files/seminar/morakes/g4/F4";
+    public static final boolean PRINT_TRALE_OUTPUT = false;
+    public static final boolean WRITE_TRALE_OUTPUT = true;
+
+    public static PrintWriter signatureW;
+    public static PrintWriter lexiconW;
+    public static PrintWriter rulesW;
+    public static PrintWriter lexicalRules;
+    public static PrintWriter macrosW;
+    public static PrintWriter principlesW;
 
     /**
-     * 
-     * 
      *
-     * 
+     *
+     *
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException {
 
-       
-        System.out.println("Converting JSON to Trale format...\n\n");
-        StringBuilder sb = new StringBuilder();
-        Scanner s = new Scanner(new File(JSON_FILE));
-        while (s.hasNextLine()) {
-            String aLine = s.nextLine();
-            sb.append(aLine);
-        }
-        s.close();
-
         
-        String json = sb.toString();
+        System.out.println("Converting JSON to Trale format...\n");
+        String inputFile = JSON_FILE;
+        String outFile = "trale_files";
+        if(args.length != 2) {
+            System.out.println("Usage: java -jar travis.jar JSON_INPUT TRALE_OUTPUT\n"
+                    + "e.g., java jar travis.jar p24.json grammar24");
+        }
+        else {
+            inputFile = args[0];
+            outFile = args[1];
+        }
+        
+        String jsonString = getJSONStringfromFile(inputFile);
+
+        // Setup output files.
+        if (WRITE_TRALE_OUTPUT) {
+            File f = new File(outFile);
+            f.mkdir();
+            signatureW = new PrintWriter(f + "/signature");
+            lexiconW = new PrintWriter(f + "/lexicon.pl");
+            rulesW = new PrintWriter(f + "/rules.pl");
+            lexicalRules = new PrintWriter(f + "/lexical_rules.pl");
+            macrosW = new PrintWriter(f + "/macros.pl");
+            principlesW = new PrintWriter(f + "/principles.pl");
+
+        }
+
+        convertJSONtoTrale(jsonString);
+
+        // Close all writers.
+        if (WRITE_TRALE_OUTPUT) {
+            signatureW.close();
+            lexiconW.close();
+            rulesW.close();
+            lexicalRules.close();
+            macrosW.close();
+            principlesW.close();
+        }
+        
+        System.out.println("... done.");
+    }
+
+    
+    
+    /**
+     * 
+     * @param json
+     * @throws FileNotFoundException 
+     */
+    private static void convertJSONtoTrale(String json) throws FileNotFoundException {
+               
         JSONObject obj = new JSONObject(json);
 
         //  System.out.println(principles);
         for (String aComp : sortKeys(obj)) {
             switch (aComp) {
-                
+
                 // Gert refactored "principles" to serve the purpose of a 
                 // lexical entry.
                 case "lexicon":
@@ -80,16 +111,23 @@ public class BoldeToTraleConverter {
                     // Get all lex entries.
                     JSONArray lexEntries = (JSONArray) obj.getJSONArray(aComp);
                     //System.out.println(lexEntries);
-                    for(int p = 0; p < lexEntries.length(); p++) {
-                        JSONObject aLexEntry = (JSONObject)lexEntries.get(p);
-                        //System.out.println(aLexEntry);
-                        String trale = LexicalEntryConverter.convertLexEntry(aLexEntry);
-                        if(PRINT_LEXICALENTRY) System.out.println(trale + "\n");
+                    for (int p = 0; p < lexEntries.length(); p++) {
+                        if (!lexEntries.get(p).toString().equals("null")) {
+                            JSONObject aLexEntry = (JSONObject) lexEntries.get(p);
+                            //System.out.println(aLexEntry);
+                            String trale = LexicalEntryConverter.convertLexEntry(aLexEntry);
+                            if (PRINT_TRALE_OUTPUT) {
+                                System.out.println(trale + "\n");
+                            }
+                            if (WRITE_TRALE_OUTPUT) {
+                                lexiconW.write(trale + "\n");
+                            }
+
+                        }
                     }
-                break;
-                
-                
-                    // Original Bolde Lexicon Entry Converter.
+                    break;
+
+                // Original Bolde Lexicon Entry Converter.
 //                case "lexicon":
 //                    System.out.println("Converting lexical entries (BOLDE ORIGINAL)...");
 //                    // Get all lexicon entries.
@@ -137,15 +175,14 @@ public class BoldeToTraleConverter {
 //                        }
 //                    }
 //                break;
-
                 case "whatever":
                     break;
-                    
+
                 // signature
                 case "global":
                     System.out.println("Converting signature...");
                     LinkedHashMap<String, String> typeToFeatures = new LinkedHashMap<>();
-                                
+
                     // Get the features that the user specified in the GUI.
                     for (String anotherComp : sortKeys(obj)) {
                         switch (anotherComp) {
@@ -156,7 +193,7 @@ public class BoldeToTraleConverter {
                                     //System.out.println(aDeclarationEntry);
                                     // Get the type.
                                     String typeName = aDeclarationEntry.getString("name");
-                                    
+
                                     // Get its features and their types.
                                     JSONObject v = aDeclarationEntry.getJSONObject("fstr").getJSONObject("v");
                                     StringBuilder featsBuilder = new StringBuilder();
@@ -166,81 +203,115 @@ public class BoldeToTraleConverter {
                                         String typeOfFeature = (String) typeOfFeatureObj.get("e");
                                         featsBuilder.append(typeOfFeature + " ");
                                     }
-                                    if(featsBuilder.toString().length() > 0) {
+                                    if (featsBuilder.toString().length() > 0) {
                                         typeToFeatures.put(typeName, featsBuilder.toString().trim());
                                     }
                                 }
                                 break;
                         }
                     }
-                    
+
                     // 
-                    JSONObject type = obj.getJSONObject(aComp).getJSONObject("signature").getJSONObject("type");
-                    String tralesig = SignatureConverter.convertSignature(type, -1, typeToFeatures);
-                    if(PRINT_SIGNATURE) System.out.println(tralesig + "\n");
-                    
-                break;    
-                    
+                    JSONObject type = obj.getJSONObject(aComp).getJSONObject("signature");//.getJSONObject("type");
+                    StringBuilder sigBuilder = new StringBuilder();
+                    SignatureConverter.convertSignature(type, -1, typeToFeatures, sigBuilder);
+                    String signature = sigBuilder.toString().replaceFirst("type", "bot") + ".";
+                    if (PRINT_TRALE_OUTPUT) {
+                        System.out.println(signature + "\n");
+                    }
+                    if (WRITE_TRALE_OUTPUT) {
+                        signatureW.write(signature + "\n");
+                    }
+
+                    break;
+
                 case "rules":
                     System.out.println("Converting rules...");
                     // Get all rule entries.
                     JSONArray ruleEntries = (JSONArray) obj.getJSONArray(aComp);
                     //System.out.println(ruleEntries);
-                    for(int r = 0; r < ruleEntries.length(); r++) {
-                        JSONObject aRuleEntry = (JSONObject)ruleEntries.get(r);
+                    for (int r = 0; r < ruleEntries.length(); r++) {
+                        JSONObject aRuleEntry = (JSONObject) ruleEntries.get(r);
                         //System.out.println(aRuleEntry);
                         String trale = RuleConverter.convertRule(aRuleEntry);
-                        if(PRINT_RULE) System.out.println(trale + "\n");
+                        if (PRINT_TRALE_OUTPUT) {
+                            System.out.println(trale + "\n");
+                        }
+                        if (WRITE_TRALE_OUTPUT) {
+                            rulesW.write(trale + "\n");
+                        }
                     }
                     break;
-                    
-                     
+
                 case "lexRules":
-                    if(CONVERT_LEXRULES) {
-                    System.out.println("Converting lexical rules...");
-                    // Get all lexRule entries.
-                    JSONArray lexRuleEntries = (JSONArray) obj.getJSONArray(aComp);
-                    //System.out.println(lexRuleEntries);
-                    for(int p = 0; p < lexRuleEntries.length(); p++) {
-                        JSONObject aLexRuleEntry = (JSONObject)lexRuleEntries.get(p);
-                        //System.out.println(aLexRuleEntry);
-                        String trale = LexRuleConverter.convertLexRule(aLexRuleEntry);
-                        if(PRINT_LEXRULE) System.out.println(trale + "\n");
-                    }
-                    }
-                break;    
+                        System.out.println("Converting lexical rules...");
+                        // Get all lexRule entries.
+                        JSONArray lexRuleEntries = (JSONArray) obj.getJSONArray(aComp);
+                        //System.out.println(lexRuleEntries);
+                        for (int p = 0; p < lexRuleEntries.length(); p++) {
+                            JSONObject aLexRuleEntry = (JSONObject) lexRuleEntries.get(p);
+                            //System.out.println(aLexRuleEntry);
+                            String trale = LexRuleConverter.convertLexRule(aLexRuleEntry);
+                            if (PRINT_TRALE_OUTPUT) {
+                                System.out.println(trale + "\n");
+                            }
+                            if (WRITE_TRALE_OUTPUT) {
+                                lexicalRules.write(trale + "\n");
+                            }
                         
-                    
+                    }
+                    break;
+
                 case "principles":
                     System.out.println("Converting principles...");
                     // Get all principle entries.
                     JSONArray principleEntries = (JSONArray) obj.getJSONArray(aComp);
                     //System.out.println(principleEntries);
-                    for(int p = 0; p < principleEntries.length(); p++) {
-                        JSONObject aPrincipleEntry = (JSONObject)principleEntries.get(p);
+                    for (int p = 0; p < principleEntries.length(); p++) {
+                        JSONObject aPrincipleEntry = (JSONObject) principleEntries.get(p);
                         //System.out.println(aPrincipleEntry);
                         String trale = PrincipleConverter.convertPrinciple(aPrincipleEntry);
-                        if(PRINT_PRINCIPLE) System.out.println(trale + "\n");
+                        if (PRINT_TRALE_OUTPUT) {
+                            System.out.println(trale + "\n");
+                        }
+                        if (WRITE_TRALE_OUTPUT) {
+                            principlesW.write(trale + "\n");
+                        }
                     }
-                break;
-                
+                    break;
+
                 case "abbreviations":
                     System.out.println("Converting abbreviations...");
-                    // Get all lex entries.
+                    // Get all abbreviations.
                     JSONArray abbr = (JSONArray) obj.getJSONArray(aComp);
-                   // System.out.println(abbr);
-                    for(int a = 0; a < abbr.length(); a++) {
+                    // System.out.println(abbr);
+                    for (int a = 0; a < abbr.length(); a++) {
                         JSONObject anAbbrEntry = (JSONObject) abbr.get(a);
                         //System.out.println(anAbbrEntry);
                         String trale = AbbreviationConverter.convertAbbreviation(anAbbrEntry);
-                        if(PRINT_ABBREVIATION) System.out.println(trale);
+                        if (PRINT_TRALE_OUTPUT) {
+                            System.out.println(trale);
+                        }
+                        if (WRITE_TRALE_OUTPUT) {
+                            macrosW.write(trale + "\n");
+                        }
                     }
-                    System.out.println();
                     break;
 
             }
-            
+
         }
     }
-    
+
+    private static String getJSONStringfromFile(String inputFile) throws FileNotFoundException {
+        StringBuilder jsonsb = new StringBuilder();
+        Scanner s = new Scanner(new File(inputFile));
+        while (s.hasNextLine()) {
+            String aLine = s.nextLine();
+            jsonsb.append(aLine);
+        }
+        s.close();
+        return jsonsb.toString();
+    }
+
 }

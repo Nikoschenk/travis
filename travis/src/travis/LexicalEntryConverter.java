@@ -75,6 +75,8 @@ public class LexicalEntryConverter {
         
         // For each realization of the template, i.e. for all words in the list.
         for(String w : words) {
+            // Ignore empty words (bug in Gert's UI).
+            if(w.trim().length() > 0)
             allWords.append(w + " ---> " + trale + ".\n");
         }
         return allWords.toString();
