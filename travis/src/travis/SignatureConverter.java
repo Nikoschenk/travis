@@ -6,6 +6,7 @@
 package travis;
 
 import java.io.FileNotFoundException;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import org.json.JSONObject;
 import static travis.BoldeJSON.sortKeys;
@@ -18,16 +19,17 @@ import static travis.BoldeJSON.sortKeys;
  */
 public class SignatureConverter {
 
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException {
-        
-      
+
     }
-    
-    public static void convertSignature(JSONObject obj, int indent, LinkedHashMap<String, String> typeToFeatures, StringBuilder sigBuilder) throws FileNotFoundException {
+
+    public static void convertSignature(JSONObject obj, int indent,
+            LinkedHashMap<String, String> typeToFeatures,
+            StringBuilder sigBuilder,
+            HashSet<String> typesWhoseFeaturesHaveAlreadyBeenAdded) throws FileNotFoundException {
         indent++;
         for (String aType : sortKeys(obj)) {
             StringBuilder indentB = new StringBuilder();
@@ -35,12 +37,18 @@ public class SignatureConverter {
                 indentB.append("   ");
             }
             sigBuilder.append(indentB.toString() + aType.toLowerCase());
-            if(typeToFeatures.containsKey(aType)) {
-                sigBuilder.append(" " + typeToFeatures.get(aType).toLowerCase());
+            if (typeToFeatures.containsKey(aType)) {
+                if (!typesWhoseFeaturesHaveAlreadyBeenAdded.contains(aType)) {
+                    sigBuilder.append(" " + typeToFeatures.get(aType).toLowerCase());
+                    typesWhoseFeaturesHaveAlreadyBeenAdded.add(aType);
+                } else {
+                    //System.out.println("Sorry, the features for type: " + aType
+                    //        + " have already been added to the signature at some other place.");
+                }
             }
             sigBuilder.append("\n");
             if (obj.get(aType) instanceof JSONObject) {
-                convertSignature(obj.getJSONObject(aType), indent, typeToFeatures, sigBuilder);
+                convertSignature(obj.getJSONObject(aType), indent, typeToFeatures, sigBuilder, typesWhoseFeaturesHaveAlreadyBeenAdded);
             }
         }
     }

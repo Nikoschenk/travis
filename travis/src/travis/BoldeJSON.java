@@ -62,7 +62,7 @@ public class BoldeJSON {
 
         // Replace uppercase letters by lowercase macro.
         String[] traleLines = trale.split("\\n");
-        String abbreviationsRegex = "[A-Z]+";
+        String abbreviationsRegex = "[-A-Z]+";
         Pattern pattern = Pattern.compile(abbreviationsRegex);
         for (String traleLine : traleLines) {
             Matcher matcher = pattern.matcher(traleLine);

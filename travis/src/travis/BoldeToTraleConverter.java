@@ -3,6 +3,7 @@ package travis;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 import org.json.JSONArray;
@@ -20,14 +21,19 @@ public class BoldeToTraleConverter {
     // Gert's first grammar.
     // public static final String JSON_FILE = "files/GertsClone_reduced_hierarchy/files/spanish.json";
     // Gert's second grammar. 
-     public static final String JSON_FILE = "files/G11_fixed/files/spanish_formatted.json";
+    // public static final String JSON_FILE = "files/G11_fixed/files/spanish_formatted.json";
     // public static final String JSON_FILE = "files/G11.json";
     // public static final String JSON_FILE = "files/f73.json.form.json";
     // public static final String JSON_FILE = "files/p24/p24/files/f24.formatted.json";
     // public static final String JSON_FILE = "files/p24_new/F4_formatted.json";
     // public static final String JSON_FILE = "files/p24_new/f24_formatted.json";
-    //public static final String JSON_FILE = "files/seminar/morakes/g4/F4";
-    public static final boolean PRINT_TRALE_OUTPUT = false;
+    // public static final String JSON_FILE = "files/seminar/morakes/g4/F4";
+    public static final String JSON_FILE = "files/F4-Louis.formatted.json";
+    
+    
+    
+    
+    public static final boolean PRINT_TRALE_OUTPUT = true;
     public static final boolean WRITE_TRALE_OUTPUT = true;
 
     public static PrintWriter signatureW;
@@ -36,6 +42,8 @@ public class BoldeToTraleConverter {
     public static PrintWriter lexicalRules;
     public static PrintWriter macrosW;
     public static PrintWriter principlesW;
+    public static PrintWriter theoryW;
+            
 
     /**
      *
@@ -71,6 +79,7 @@ public class BoldeToTraleConverter {
             lexicalRules = new PrintWriter(f + "/lexical_rules.pl");
             macrosW = new PrintWriter(f + "/macros.pl");
             principlesW = new PrintWriter(f + "/principles.pl");
+            theoryW = new PrintWriter(f + "/theory.pl");
 
         }
 
@@ -84,6 +93,7 @@ public class BoldeToTraleConverter {
             lexicalRules.close();
             macrosW.close();
             principlesW.close();
+            theoryW.close();
         }
         
         System.out.println("... done.");
@@ -98,6 +108,16 @@ public class BoldeToTraleConverter {
      */
     private static void convertJSONtoTrale(String json) throws FileNotFoundException {
                
+        if(WRITE_TRALE_OUTPUT) {
+            theoryW.write("signature(signature).\n");
+            theoryW.write("[lexicon].\n");
+            theoryW.write("[rules].\n");
+            theoryW.write("[lexical_rules].\n");
+            theoryW.write("[macros].\n");
+            theoryW.write("[principles].\n");
+        }
+        
+        
         JSONObject obj = new JSONObject(json);
 
         //  System.out.println(principles);
@@ -214,8 +234,10 @@ public class BoldeToTraleConverter {
                     // 
                     JSONObject type = obj.getJSONObject(aComp).getJSONObject("signature");//.getJSONObject("type");
                     StringBuilder sigBuilder = new StringBuilder();
-                    SignatureConverter.convertSignature(type, -1, typeToFeatures, sigBuilder);
-                    String signature = sigBuilder.toString().replaceFirst("type", "bot") + ".";
+                    HashSet<String> typesWhoseFeaturesHaveAlreadyBeenAdded = new  HashSet<String>();
+                    SignatureConverter.convertSignature(type, 0, typeToFeatures, sigBuilder, typesWhoseFeaturesHaveAlreadyBeenAdded);
+                    String signature = sigBuilder.insert(0, "type_hierarchy\nbot\n") + ".";
+                    
                     if (PRINT_TRALE_OUTPUT) {
                         System.out.println(signature + "\n");
                     }
