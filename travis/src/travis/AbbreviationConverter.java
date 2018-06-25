@@ -53,7 +53,7 @@ public class AbbreviationConverter {
             }
         }
         
-        String trale = normalize(template.toString());
+        String trale = normalize(template.toString()) + ".";
         return trale;
     }
 

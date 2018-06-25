@@ -110,11 +110,12 @@ public class BoldeToTraleConverter {
                
         if(WRITE_TRALE_OUTPUT) {
             theoryW.write("signature(signature).\n");
-            theoryW.write("[lexicon].\n");
-            theoryW.write("[rules].\n");
-            theoryW.write("[lexical_rules].\n");
-            theoryW.write("[macros].\n");
-            theoryW.write("[principles].\n");
+            theoryW.write(":- [lexicon].\n");
+            theoryW.write(":- [rules].\n");
+            theoryW.write(":- [lexical_rules].\n");
+            theoryW.write(":- [macros].\n");
+            theoryW.write(":- [principles].\n");
+            theoryW.write("hidden_feat(dtrs).");
         }
         
         
